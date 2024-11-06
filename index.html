@@ -18,10 +18,16 @@
     <div class="register-container">
       <h1>REGISTER</h1>
       <input type="text" id="username" placeholder="Username">
-      <button onclick="register()">Sign Up</button>
+      <button onclick="showRegisterModal()">Sign Up</button>
     </div>
+  </div>
 
-    
+  <div id="register-modal" class="modal">
+    <div class="modal-content">
+      <h2>Registrar</h2>
+      <button onclick="addSample()">Grabar</button>
+      <button onclick="closeRegisterModal()">Cancelar</button>
+    </div>
   </div>
 
   <!-- Página Principal (Encriptación / Desencriptación) -->
@@ -41,12 +47,6 @@
         <div class="progress-bar" id="decryption-progress">✔ Decrypted</div>
       </div>
     </div>
-  </div>
-
-  <script src="script.js"></script>
-</body>
-</html>
-
   </div>
 
   <script src="script.js"></script>
