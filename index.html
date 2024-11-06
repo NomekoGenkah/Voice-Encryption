@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voice Encryption</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Página de Inicio de Sesión -->
+  <div id="login-page" class="page">
+    <div class="login-container">
+      <h1>LOGIN</h1>
+      <input type="text" id="username" placeholder="Username">
+      <button onclick="login()">Sign Up</button>
+    </div>
+  </div>
+
+  <!-- Página Principal (Encriptación / Desencriptación) -->
+  <div id="main-page" class="page" style="display: none;">
+    <h1 id="display-username"></h1>
+    <div class="encrypt-decrypt-container">
+      <div class="encrypt-container">
+        <h2>ENCRYPT</h2>
+        <input type="file" id="encrypt-file">
+        <button onclick="startVoiceEncryption()">Encrypt File with Voice</button>
+        <div class="progress-bar" id="encryption-progress">✔ Encrypted</div>
+      </div>
+      <div class="decrypt-container">
+        <h2>DECRYPT</h2>
+        <input type="file" id="decrypt-file">
+        <button onclick="startVoiceDecryption()">Decrypt File with Voice</button>
+        <div class="progress-bar" id="decryption-progress">✔ Decrypted</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
