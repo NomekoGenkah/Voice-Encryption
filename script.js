@@ -1,5 +1,7 @@
 // Variables globales
-let voiceKey = "";
+//let mediaRecorder;
+//let audioChunks = [];
+//let audioUrl;
 
 // Función de inicio de sesión
 function login() {
@@ -14,24 +16,61 @@ function login() {
   }
 }
 
+function showRegisterModal(){
+  document.getElementById("register-modal").style.display = "block";
+}
+
+function closeRegisterModal() {
+  document.getElementById("register-modal").style.display = "none";
+}
+
 // Función para iniciar el reconocimiento de voz y obtener la clave de encriptación
 function startVoiceEncryption() {
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SpeechRecognition) {
-    alert("Lo siento, tu navegador no soporta el reconocimiento de voz.");
-    return;
-  }
 
-  const recognition = new SpeechRecognition();
-  recognition.lang = "es-ES";
-  
-  recognition.onresult = (event) => {
-    voiceKey = event.results[0][0].transcript;
-    alert("Clave de voz capturada: " + voiceKey);
-    encryptFile();
-  };
+  let mediaRecorder;
+  let audioChunks = [];
+  let audioUrl;
 
-  recognition.start();
+    // Solicitar acceso al micrófono
+    navigator.mediaDevices.getUserMedia({ audio: true })
+    .then(function(stream) {
+      // Crear el MediaRecorder
+      mediaRecorder = new MediaRecorder(stream);
+      
+      // Capturar los datos cuando el grabador esté grabando
+      mediaRecorder.ondataavailable = function(event) {
+        audioChunks.push(event.data);
+      };
+
+      // Detener la grabación
+      mediaRecorder.onstop = function() {
+        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+        audioUrl = URL.createObjectURL(audioBlob);
+        const audio = new Audio(audioUrl);
+        audio.play(); // Reproducir el audio grabado
+
+        // Crear un enlace para descargar el archivo grabado
+        const a = document.createElement('a');
+        a.href = audioUrl;
+        a.download = 'audio_grabado.wav';
+        a.click();
+      };
+
+      // Iniciar la grabación
+      mediaRecorder.start();
+
+      // Detener la grabación automáticamente después de 3 segundos
+      setTimeout(function() {
+        mediaRecorder.stop(); // Detener la grabación después de 3 segundos
+      }, 3000); // 3000 milisegundos (3 segundos)
+      
+      // Devolver el objeto mediaRecorder para controlarlo desde el botón de detener
+      return mediaRecorder;
+    })
+    .catch(function(err) {
+      console.log('Error al acceder al micrófono: ' + err);
+    });
+
 }
 
 // Función para capturar la clave de desencriptación por voz
