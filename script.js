@@ -8,12 +8,12 @@ let voiceKey; // Clave de voz
 function login() {
     const username = document.getElementById("username").value;
     if (username) {
-      localStorage.setItem("username", username);
-      document.getElementById("login-page").style.display = "none";
-      document.getElementById("main-page").style.display = "block";
-      document.getElementById("display-username").textContent = username;
+        localStorage.setItem("username", username);
+        document.getElementById("login-page").style.display = "none";
+        document.getElementById("main-page").style.display = "block";
+        document.getElementById("display-username").textContent = username;
     } else {
-      alert("Por favor, ingresa un nombre de usuario.");
+        alert("Por favor, ingresa un nombre de usuario.");
     }
 }
 
@@ -34,9 +34,12 @@ function closeRegisterModal() {
 // Función para iniciar la grabación de voz con intentos
 function startRecording() {
     if (recordAttempts >= maxAttempts) {
-        document.getElementById("record-status").textContent = "Has alcanzado el número máximo de intentos.";
+        document.getElementById("record-status").textContent = "You've reached the maximum number of attempts.";
         return;
     }
+
+    const recordButton = document.querySelector("#register-modal button[onclick='startRecording()']");
+    recordButton.textContent = "Recording..."; // Cambiar el texto del botón a "Grabando..."
 
     // Solicitar acceso al micrófono
     navigator.mediaDevices.getUserMedia({ audio: true })
@@ -55,15 +58,23 @@ function startRecording() {
                 // Validar el archivo grabado
                 if (audioBlob.size > 0) {
                     recordAttempts++;
-                    document.getElementById("record-attempts").textContent = `Intentos de grabación: ${recordAttempts}/${maxAttempts}`;
+                    document.getElementById("record-attempts").textContent = `Recording attempts: ${recordAttempts}/${maxAttempts}`;
                     
                     if (recordAttempts === maxAttempts) {
-                        document.getElementById("record-status").textContent = "Registro correcto.";
+                        document.getElementById("record-status").textContent = "Successful registration.";
                         voiceKey = "claveDeEjemplo"; // Aquí podrías asignar la clave de voz real
+
+                        // Espera un momento y cierra el modal
+                        setTimeout(() => {
+                            closeRegisterModal();
+                        }, 1500); // Cierra el modal después de 1.5 segundos
                     }
                 } else {
-                    document.getElementById("record-status").textContent = "Archivo dañado.";
+                    document.getElementById("record-status").textContent = "Corrupted file.";
                 }
+
+                // Restaurar el texto del botón
+                recordButton.textContent = "Record";
             };
 
             // Iniciar la grabación y detenerla después de 3 segundos
@@ -75,6 +86,8 @@ function startRecording() {
         .catch(function(err) {
             console.log('Error al acceder al micrófono: ' + err);
             document.getElementById("record-status").textContent = "Error al acceder al micrófono.";
+            // Restaurar el texto del botón en caso de error
+            recordButton.textContent = "Record";
         });
 }
 
@@ -155,7 +168,7 @@ function encryptFile() {
     const file = fileInput.files[0];
 
     if (!file) {
-        alert("Por favor, selecciona un archivo para encriptar.");
+        alert("Please select a file to encrypt.");
         return;
     }
 
@@ -182,7 +195,7 @@ function decryptFile(decryptionKey) {
     const file = fileInput.files[0];
 
     if (!file) {
-        alert("Por favor, selecciona un archivo para desencriptar.");
+        alert("Please select a file to decrypt.");
         return;
     }
 
