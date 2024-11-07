@@ -24,12 +24,14 @@
 
   <div id="register-modal" class="modal">
     <div class="modal-content">
-      <h2>Registrar</h2>
-      <button onclick="addSample()">Grabar</button>
-      <button onclick="closeRegisterModal()">Cancelar</button>
+      <h2>Register</h2>
+      <button onclick="startRecording()">Record</button>
+      <button onclick="closeRegisterModal()">Cancel</button>
+      <p id="record-attempts">Recording attempts: 0/3</p>
+      <p id="record-status"></p> <!-- Para mostrar el estado del registro -->
     </div>
   </div>
-
+  
   <!-- Página Principal (Encriptación / Desencriptación) -->
   <div id="main-page" class="page" style="display: none;">
     <h1 id="display-username"></h1>
