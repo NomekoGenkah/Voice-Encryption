@@ -11,13 +11,13 @@
   <div id="login-page" class="page">
     <div class="login-container">
       <h1>LOGIN</h1>
-      <input type="text" id="username" placeholder="Username">
-      <button onclick="login()">Log in</button>
+      <input type="text" id="usernameLogin" placeholder="Username">
+      <button onclick="showLoginModal()">Log in</button>
     </div>
 
     <div class="register-container">
       <h1>REGISTER</h1>
-      <input type="text" id="username" placeholder="Username">
+      <input type="text" id="usernameRegister" placeholder="Username">
       <button onclick="showRegisterModal()">Sign Up</button>
     </div>
   </div>
@@ -31,6 +31,15 @@
       <p id="record-status"></p> <!-- Para mostrar el estado del registro -->
     </div>
   </div>
+
+  <div id="login-modal" class="modal">
+    <div class="modal-content">
+      <h2>Login</h2>
+      <button onclick="loginRecord()">Record</button>
+      <button onclick="closeLoginModal()">Cancel</button>
+      <p id="record-status"></p> <!-- Para mostrar el estado del registro -->
+    </div>
+  </div>
   
   <!-- Página Principal (Encriptación / Desencriptación) -->
   <div id="main-page" class="page" style="display: none;">
@@ -38,14 +47,14 @@
     <div class="encrypt-decrypt-container">
       <div class="encrypt-container">
         <h2>ENCRYPT</h2>
-        <input type="file" id="encrypt-file">
-        <button onclick="startVoiceEncryption()">Encrypt File with Voice</button>
+        <input type="file" id="encrypt-file" name="fileE">
+        <button onclick="encriptar()">Encrypt File with Voice</button>
         <div class="progress-bar" id="encryption-progress">✔ Encrypted</div>
       </div>
       <div class="decrypt-container">
         <h2>DECRYPT</h2>
-        <input type="file" id="decrypt-file">
-        <button onclick="startVoiceDecryption()">Decrypt File with Voice</button>
+        <input type="file" id="decrypt-file" name="fileD">
+        <button onclick="desencriptar()">Decrypt File with Voice</button>
         <div class="progress-bar" id="decryption-progress">✔ Decrypted</div>
       </div>
     </div>
