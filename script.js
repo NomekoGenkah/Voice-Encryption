@@ -72,7 +72,7 @@ async function login(audio) {
         formData.append("username", username);
         console.log(formData);
 
-        const response = await fetch('http://localhost:8080/login', {
+        const response = await fetch('https://voice-backend-dnam.onrender.com/login', {
             method: 'POST',
             body: formData
         });
@@ -181,12 +181,12 @@ function startRecording() {
 
 function encriptar(){
     fileInput = document.getElementById("encrypt-file");
-    uploadAndDownloadFile("http://localhost:8080/encrypt", fileInput);
+    uploadAndDownloadFile("https://voice-backend-dnam.onrender.com/encrypt", fileInput);
 }
 
 function desencriptar(){
     fileInput = document.getElementById("decrypt-file");
-    uploadAndDownloadFile("http://localhost:8080/decrypt", fileInput);
+    uploadAndDownloadFile("https://voice-backend-dnam.onrender.com/decrypt", fileInput);
 }
 
 // Función para enviar el archivo y recibir el archivo de vuelta
@@ -250,7 +250,7 @@ function enviarAudiosYNombre() {
   formData.append('username', username);
 
   // Enviar los datos al backend con un POST request
-  fetch('http://localhost:8080/uploadRegister', {
+  fetch('https://voice-backend-dnam.onrender.com/uploadRegister', {
     method: 'POST',
     body: formData
   })
