@@ -222,7 +222,7 @@ async function uploadAndDownloadFile(url, fileInput) {
         // Obtener el archivo de la respuesta (esto depende de cómo se devuelve el archivo desde el backend)
         const blob = await response.blob();
 
-        const dispo = response.headers.get('Content-Disposition');
+        const disposition = response.headers.get('Content-Disposition');
         let fileName = "archivo_recibido.txt";
 
         if (disposition && disposition.includes('filename=')) {
