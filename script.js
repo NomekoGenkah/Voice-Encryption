@@ -223,7 +223,7 @@ async function uploadAndDownloadFile(url, fileInput) {
         const blob = await response.blob();
 
         const disposition = response.headers.get('Content-Disposition');
-        let fileName = file.name;
+        const fileName = fileInput.files[0] ? fileInput.files[0].name : 'No file selected';
 
         if (disposition && disposition.includes('filename=')) {
             let filenameMatch = disposition.match(/filename="?(.+)"?/);
