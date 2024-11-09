@@ -190,6 +190,7 @@ function desencriptar(){
 }
 
 // Función para enviar el archivo y recibir el archivo de vuelta
+
 async function uploadAndDownloadFile(url, fileInput) {
     const username = document.getElementById("usernameLogin").value;
 
@@ -221,10 +222,20 @@ async function uploadAndDownloadFile(url, fileInput) {
         // Obtener el archivo de la respuesta (esto depende de cómo se devuelve el archivo desde el backend)
         const blob = await response.blob();
 
+        const dispo = response.headers.get('Content-Disposition');
+        let fileName = "archivo_recibido.txt";
+
+        if (disposition && disposition.includes('filename=')) {
+            let filenameMatch = disposition.match(/filename="?(.+)"?/);
+            if (filenameMatch && filenameMatch[1]) {
+                fileName = filenameMatch[1];
+            }
+        }
+
         // Crear un enlace para descargar el archivo
         const downloadLink = document.createElement("a");
         downloadLink.href = URL.createObjectURL(blob);
-        downloadLink.download = "archivo_recibido.txt";  // El nombre que desees para el archivo descargado
+        downloadLink.download = fileName;  // El nombre que desees para el archivo descargado
         downloadLink.click();  // Simula el clic para descargar el archivo
 
     } catch (error) {
