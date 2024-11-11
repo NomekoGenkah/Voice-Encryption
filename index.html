@@ -22,6 +22,7 @@
     </div>
   </div>
 
+<!--Modal De Registro-->
   <div id="register-modal" class="modal">
     <div class="modal-content">
       <h2>Register</h2>
@@ -31,7 +32,8 @@
       <p id="record-status"></p> <!-- Para mostrar el estado del registro -->
     </div>
   </div>
-
+  
+ <!-- Modal de Login -->
   <div id="login-modal" class="modal">
     <div class="modal-content">
       <h2>Login</h2>
@@ -44,14 +46,14 @@
   <!-- Página Principal (Encriptación / Desencriptación) -->
   <div id="main-page" class="page" style="display: none;">
     <h1 id="display-username"></h1>
-    <div class="encrypt-decrypt-container">
+    <div class="encrypt-decrypt-container"> <!-- Sección de Encriptación -->
       <div class="encrypt-container">
         <h2>ENCRYPT</h2>
         <input type="file" id="encrypt-file" name="fileE">
         <button onclick="encriptar()">Encrypt File with Voice</button>
         <div class="progress-bar" id="encryption-progress">✔ Encrypted</div>
       </div>
-      <div class="decrypt-container">
+      <div class="decrypt-container">  <!-- Sección de Desencriptación -->
         <h2>DECRYPT</h2>
         <input type="file" id="decrypt-file" name="fileD">
         <button onclick="desencriptar()">Decrypt File with Voice</button>
