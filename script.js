@@ -5,6 +5,7 @@ let recordings = []; // Array para almacenar las grabaciones de audio
 let voiceKey; // Clave de voz
 let audio; // Variable global para almacenar el audio grabado
 let username
+let grabando = false;
 // Función de inicio de sesión
 function log(username) {
 
@@ -123,6 +124,9 @@ function startRecording() {
         document.getElementById("record-status").textContent = "You've reached the maximum number of attempts.";
         return;
     }
+    if(grabando){
+        return
+    }
 
     const recordButton = document.querySelector("#register-modal button[onclick='startRecording()']");
     recordButton.textContent = "Recording..."; // Cambiar el texto del botón a "Grabando..."
@@ -134,12 +138,14 @@ function startRecording() {
             let audioChunks = [];
 
             mediaRecorder.ondataavailable = function(event) {
+                grabando = true;
                 audioChunks.push(event.data);
             };
 
             mediaRecorder.onstop = function() {
                 const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
                 recordings.push(audioBlob);
+                grabando = false;
 
                 // Validar el archivo grabado
                 if (audioBlob.size > 0) {
